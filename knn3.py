@@ -1,35 +1,32 @@
-# Example of kNN implemented from Scratch in Python
-
 import csv
-import random
 import math
 import operator
+from colorama import init, Fore, Back, Style
 
-def cargarDataset(filename, trainingSet=[]):
-	with open(filename, 'rb') as csvfile:
+def cargarDataset(archivo, trainingSet=[]):
+	with open(archivo, 'rb') as csvfile:
 	    lines = csv.reader(csvfile)
 	    dataset = list(lines)
-	    print(len(dataset))
+	    for x in (dataset):
+	    	print(x)
+	    print("\n 	DataSet: "+str(len(dataset)))
 	    for x in range(len(dataset)-1):
-	        for y in range(5):
-	            #print(dataset[x][y])
-	            if dataset[x][y] == 'A':
+	        for y in range(6):
+	            if dataset[x][y] == 'A' or dataset[x] == 'a':
 	            	dataset[x][y] = 10
-	            elif dataset[x][y] == 'B':
+	            elif dataset[x][y] == 'B' or dataset[x] == 'b':
 	            	dataset[x][y] = 11
-	            elif dataset[x][y] == 'C':
+	            elif dataset[x][y] == 'C' or dataset[x] == 'c':
 	            	dataset[x][y] = 12
-	            elif dataset[x][y] == 'D':
+	            elif dataset[x][y] == 'D' or dataset[x] == 'd':
 	            	dataset[x][y] = 13
-	            elif dataset[x][y] == 'E':
+	            elif dataset[x][y] == 'E' or dataset[x] == 'e':
 	            	dataset[x][y] = 14
-	            elif dataset[x][y] == 'F':
+	            elif dataset[x][y] == 'F' or dataset[x] == 'f':
 	            	dataset[x][y] = 15
 	            else:
-	            	#print(dataset[x][y])
-	            	#print(str(x)+"  "+str(y))
 	            	dataset[x][y] = int(dataset[x][y])
-			trainingSet.append(dataset[x])
+	        trainingSet.append(dataset[x])
 
 def euclideanDistance(instance1, instance2, length):
 	distance = 0
@@ -48,7 +45,7 @@ def getNeighbors(trainingSet, testInstance, k):
 	neighbors = []
 	for x in range(k):
 		neighbors.append(distances[x][0])
-		#print("aqui  "+str(distances[x][0]))
+		print("\n		Vecinos:  "+str(distances[x][0]))
 	return neighbors
 
 def getResponse(neighbors):
@@ -89,7 +86,6 @@ def main():
 	trainingSet=[]
 	cargarDataset('colors.data', trainingSet)
 	#print(trainingSet)
-	print 'Data set: ' + repr(len(trainingSet))
 	codHex = datos()
 	#print(codHex)
 
@@ -98,7 +94,9 @@ def main():
 	neighbors = getNeighbors(trainingSet, codHex, k)
 	result = getResponse(neighbors)
 	predictions.append(result)
-	print('> Es un color=' + repr(result))
+	
+	init(autoreset=True)
+	print(Fore.YELLOW + Back.BLUE + Style.BRIGHT + '\n 	> Es un color=' + repr(result))
 	#print(neighbors)
 """
 	with open('colors.data', 'ab') as fp:
